@@ -2,9 +2,9 @@ export const site = {
   name: "Chefmane",
   tagline: "Fire-forged flavour, plated for the future.",
   city: "Lagos, Nigeria",
-  whatsapp: "https://wa.me/2348000000000",
-  tiktok: "https://www.tiktok.com/@chefmane",
-  email: "hello@chefmane.com",
+  whatsapp: "https://wa.me/2348036626719",
+  tiktok: "https://www.tiktok.com/@chefmane_africa",
+  email: "odehmane@gmail.com",
   delivery: "Dine in · Takeaway · Delivery",
   hours: [
     { day: "Monday — Thursday", time: "11:00 — 22:00" },

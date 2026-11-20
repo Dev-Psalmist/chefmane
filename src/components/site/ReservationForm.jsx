@@ -108,7 +108,7 @@ export default function ReservationForm() {
             className={fieldClass}
             value={form.phone}
             onChange={set("phone")}
-            placeholder="0801 234 5678"
+            placeholder="0803 662 6719"
             inputMode="tel"
             required
           />
