@@ -1,0 +1,72 @@
+{
+  "name": "Reservation",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name on the booking"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone or WhatsApp number for confirmation"
+    },
+    "guests": {
+      "type": "number",
+      "description": "Number of guests at the table"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the booking"
+    },
+    "time": {
+      "type": "string",
+      "description": "Time of the booking"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Occasion, allergies or seating requests"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "seated",
+        "cancelled"
+      ],
+      "enumColors": [
+        "yellow",
+        "green",
+        "blue",
+        "red"
+      ],
+      "default": "pending",
+      "description": "Where the booking stands"
+    }
+  },
+  "required": [
+    "name",
+    "phone",
+    "date",
+    "time"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
