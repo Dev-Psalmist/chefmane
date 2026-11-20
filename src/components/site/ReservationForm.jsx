@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Loader2, Check, MessageCircle } from "lucide-react";
-import { base44 } from "@/api/base44Client";
 import { site } from "@/data/site";
 
 const emptyForm = {
@@ -29,15 +28,19 @@ export default function ReservationForm() {
     setError("");
     setStatus("saving");
     try {
-      await base44.entities.Reservation.create({
-        name: form.name.trim(),
-        phone: form.phone.trim(),
-        guests: Number(form.guests),
-        date: form.date,
-        time: form.time,
-        notes: form.notes.trim(),
-        status: "pending",
+      const response = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          guests: Number(form.guests),
+          date: form.date,
+          time: form.time,
+          notes: form.notes.trim(),
+        }),
       });
+      if (!response.ok) throw new Error(`Reservation failed: ${response.status}`);
       setForm(emptyForm);
       setStatus("done");
     } catch (err) {
