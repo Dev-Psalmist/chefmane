@@ -28,11 +28,25 @@ The repo is ready for Vercel as a static site:
 - Output directory: `dist/client`
 - `vercel.json` holds both settings plus a single-page-app rewrite, so any unknown path still lands on the site
 
-`VITE_BASE44_APP_ID` is set in `.env.production` (a public app id, safe to commit). It is only used by the reservation form, which writes table requests to the Base44 app the site was built on.
+Table requests are stored in Postgres (Neon). The site needs one environment variable on the host:
+
+| Variable | What it is |
+| --- | --- |
+| `DATABASE_URL` | Neon connection string (use the pooled one) |
+
+Set it in Vercel under Project → Settings → Environment Variables, for Production, Preview and Development.
 
 ## Table reservations
 
-`src/components/site/ReservationForm.jsx` posts to the `Reservation` entity through `@base44/sdk`. To move reservations off Base44, swap the `base44.entities.Reservation.create(...)` call for your own endpoint.
+- `src/components/site/ReservationForm.jsx` posts JSON to `POST /api/reservations`
+- `api/reservations.js` is a Vercel function that validates the request and inserts it into Postgres
+- `db/schema.sql` creates the `reservations` table. Run it once against a fresh database:
+
+```bash
+psql "$DATABASE_URL" -f db/schema.sql
+```
+
+Each row keeps `name, phone, guests, date, time, notes, status` (`pending` by default) and `created_at`. Read them in the Neon console or with any Postgres client; a small admin page can be added on top of the same table.
 
 ## Before going live
 
